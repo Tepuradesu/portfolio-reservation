@@ -1,0 +1,46 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block content %}
+      {% block extrahead %}
+      <link href="{% static 'test.css' %}" rel="stylesheet">
+    {% endblock %}
+        <p>{{ email }}</p>
+        <p>{{ value.meal_expenses }}</p>
+        <p>{{ value.other_expenses }}</p>
+        
+        
+        <p>支払いリストを一覧表示します。</p>
+        <p>支払月を選択して表示ボタンを押してください。
+        
+        <form method="post" action="">
+        {% csrf_token %}
+         {% for field in select_month %}
+          {{ field }}
+         {% endfor %}
+        <table border="1">
+        <tr>
+            <th>利用者</th>
+            <th>食事代金</th>
+            <th>その他代金</th>
+            <th>合計支払額</th>
+            <th>支払い確認</th>
+        </tr>
+        {% for email,expenses in user.items %}
+        <tr>
+            <td>{{ email }}</td>
+            <td>{{ expenses.meal_expenses }}</td>
+            <td>{{ expenses.other_expenses }}</td>
+            <td>{{ expenses.total_expenses }}</td>
+            {% if expenses.is_paid%}
+              <td>支払い済み</td>
+            {% else %}
+              <td>未支払い</td>
+            {% endif %}
+            <td><a href="{% url 'admin:paymentdetail' expenses.user_id%}"</a>リンク</td>
+        </tr>
+        {% endfor %}
+        </table>
+        <input type="submit" value="表示">
+        </form>
+<p><a href="{% url 'admin:booking_menu_list'%}"</a>献立予約者を確認する。</p>
+{% endblock %}

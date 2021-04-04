@@ -1,0 +1,4 @@
+hogehoge様,
+
+仮登録が完了したから、以下のURLにアクセスして本登録を完了させてね。
+{{ protocol }}://{{ domain }}{% url 'authentication:complete_registration' token %}

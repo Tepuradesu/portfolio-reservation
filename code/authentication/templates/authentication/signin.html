@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if form.non_field_errors %}
+ {% for error in form.non_field_errors %}
+  <p class="errornote">
+   {{ error }}
+  </p>
+ {% endfor %}
+{% endif %}
+  <p>{{ app_path }}</p>
+  <form class="login-form" action="{{ app_path }}" method="post">{% csrf_token %}
+  <p class="title">ログイン</p>
+      {{ form.non_field_errors }}
+      {% for field in form %}
+      <div class="form-row">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+      </div>
+      {% endfor %}
+      <button class="login-button" type="submit">ログイン</button>
+      <a href="{% url 'authentication:signup' %}" >新規登録の方はこちら</a>
+  </form>
+{% endblock %}
+
+

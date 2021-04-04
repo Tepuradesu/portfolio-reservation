@@ -1,0 +1,35 @@
+version: '3'
+services:
+ db:
+  image: mysql:5.7
+  volumes:
+  - ./mysql:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: test_db
+    MYSQL_USER: test 
+    MYSQL_PASSWORD: test 
+    TZ: 'Asia/Tokyo'
+  command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+ ap:
+  build: .
+  command: gunicorn -b:8080 booking.wsgi
+  expose:
+   - "9000"
+  volumes:
+   - ./code:/code
+  depends_on:
+   - db
+    
+ proxy:
+  build: ./nginx/.
+  ports:
+  - "80:80"
+  - "443:443"
+  volumes:
+  - ./config:/etc/nginx/conf.d
+  - /etc/letsencrypt/live/apprentice-engineer.biz/fullchain.pem:/etc/nginx/letsencrypt/fullchain.pem
+  - /etc/letsencrypt/live/apprentice-engineer.biz/privkey.pem:/etc/nginx/letsencrypt/privkey.pem
+  - ./static:/usr/share/nginx/html/static
+  - ./media:/usr/share/nginx/html/media

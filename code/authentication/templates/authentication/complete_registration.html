@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block extrahead %}
+  <link href="{% static 'test.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div id="content-main">
+    <h1>本登録手続き画面</h1>
+    <p>MicrosoftAuthenticationで表示されている認証QRコードを読み取ってください。</p>
+    <p>(※このページを閉じると再度QRコードを表示する事が出来ないので注意して下さい。</p>
+    <p><img src="data:image/png;base64,{{ request.session.img }}" alt="qrcode" width="200"/></p>
+    <p><a href="{% url 'authentication:signin' %}" >ユーザ認証画面へとぶ。</a></p>
+    
+</div>
+{% endblock %}

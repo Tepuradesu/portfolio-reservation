@@ -1,0 +1,32 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block content %}
+      {% block extrahead %}
+      <link href="{% static 'test.css' %}" rel="stylesheet">
+    {% endblock %}
+<p>{{start_day}}から{{end_day}}までの予約状況を表示します。</p>
+
+    <form method="post" action="">
+    {% csrf_token %}
+     {% for field in form %}
+       {{ field }}
+     {% endfor %}
+    <table border="1">
+        <tr>
+            <th>提供日</th>
+            <th>利用者</th>
+        </tr>    
+        {% for date,email_list in day.items %}
+          {% for email in email_list %}
+        <tr>
+              <td>{{date}}日</td>
+              <td>{{email}}</td>
+        </tr>
+          {% endfor %}
+        {% endfor %}
+    </table>
+    <input type="submit" value="表示">
+    </form>
+<p><a href="{% url 'admin:paymentlist'%}"</a>月別利用者 支払金額を確認する。</p>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+Django==3.1
+mysqlclient
+gunicorn
+colorama==0.4.4
+onetimepass==1.0.1
+Pillow==8.0.1
+qrcode==6.1
+six==1.15.0
+sqlparse==0.3.1

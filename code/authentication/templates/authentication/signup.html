@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <form class="signup-form" method="post">{% csrf_token %}
+    <p class="title">新規登録</p>
+    <div class="form-row"> 
+       {{ form.as_p }}	
+    </div>
+    <button class="signup-button" type="submit">登録</button>
+  </form>
+{% endblock %}

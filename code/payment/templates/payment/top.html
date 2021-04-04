@@ -1,0 +1,9 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block content %}
+      {% block extrahead %}
+      <link href="{% static 'test.css' %}" rel="stylesheet">
+    {% endblock %}
+<p>{{email}}さんの今月の支払予定額は{{payment}}円です</p>
+<p>期間({{current_year}}年{{current_month}}月{{current_month_first_day}}日-{{current_year}}年{{current_month}}月{{current_month_last_day}}日で算出)</p>
+{% endblock %}

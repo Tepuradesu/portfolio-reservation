@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block extrahead %}
+  <link href="{% static 'test.css' %}" rel="stylesheet">
+{% endblock %}
+
+<h1>TOP</h1>
+  <ul>
+    <li><a href="{% url 'authentication:signup' %}" >新規登録の方はこちら</a></li>
+    <li><a href="{% url 'authentication:mypage' %}" >登録済みの方はこちら→マイページへ</a></li>
+  </ul>
+{% endblock %}

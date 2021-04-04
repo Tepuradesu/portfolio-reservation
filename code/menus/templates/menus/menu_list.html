@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+       <p class="title">献立一覧</p> 
+        <p>今日の日付は{{today}}です。</p>
+        <p>{{ start_day }}から{{ end_day }}までの献立を表示します。</p>
+        {% if error_month %}
+          <p>{{ error_month }}</p>
+        {% endif%}
+        <p>予約する場合は予約チェック列に✔を入れて下の予約ボタンを押してください。</p>
+        {{ error_message }}
+        <div class="menu-list-form">
+          <form action = "{% url 'menus:menulist' %}" method="get">
+            {% for field in select_month %}
+              {{ field }}
+            {% endfor %}
+            <button class="menu-list-form-button" type="submit">表示</button>
+          </form>
+        </div> 
+         <table class="menu-scroll-list">
+          <tr class="menu-scroll-item">
+             <th class="fixing">提供日</th>
+             <th>主菜</th>
+             <th>副菜</th>
+             <th>汁物</th>
+             <th>予約状況</th>
+             <th>予約チェック</th>
+          </tr>
+        <form action = "{% url 'menus:booking_menu' %}" method="post">
+        {% csrf_token %}
+        {% for date,menu in menu_list.items %}
+        <tr class="menu-scroll-item">
+            <td class="fixing">{{ date }}</td>
+            <td>{{ menu.main_dish }}</td>
+            <td>{{ menu.side_dish }}</td>
+            <td>{{ menu.soup }}</td>
+            {% if menu.reservation  %}
+               {% if menu.changeable %}
+                   <td><a href="{% url 'menus:cancel_booking_menu' menu.id%}"</a>予約済み</td>
+                   <td></td>
+               {% else %}
+                   <td>予約済み</td>
+                   <td></td>
+               {% endif %}
+            {% else %}
+               {% if menu.changeable %}
+                  <td>未予約</td>
+                  <td><input type="checkbox" name="checks" value={{ menu.id }} /></td>
+               {% else %}
+                   <td>未予約</td>
+                   <td>ステータス変更不可</td>
+               {% endif %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+       </table>
+         <button class="menu-scroll-list-button" type="submit" value="予約">
+        </form>
+{% endblock %}

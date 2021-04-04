@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="rendering-mypage">  
+   <p class="title">MY PAGE</p>
+   <p class="rendering-mypage-name">{{ user_name }}さんのページ</p>
+   <a href="{% url 'menus:menulist' %}" class="rendering-mypage-item">
+    <p class="rendering-mypage-item-title">献立確認/予約</p> 
+    <img class="rendering-mypage-item-image-food" src="{%static "food.png"%}" > 
+   </a>
+   <a href="{% url 'payment:top' %}" class="rendering-mypage-item">
+    <p class="rendering-mypage-item-title">支払予定金額確認</p> 
+    <img class="rendering-mypage-item-image-wallet" src="{%static "wallet.png"%}" > 
+   </a>
+  </div>
+{% endblock %}
+
+

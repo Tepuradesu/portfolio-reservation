@@ -1,0 +1,21 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block content %}
+      {% block extrahead %}
+      <link href="{% static 'test.css' %}" rel="stylesheet">
+    {% endblock %}
+    <h1>予約キャンセル確認画面</h1>
+    {% if submit_flag %}
+       <form method="post">
+           {% csrf_token %}
+           <p>{{ booking_day }}の予約をキャンセルしますか?</p>
+           <p>※当日午前10時までは、再度予約可能です。</p>
+           <input type="submit" value="キャンセル">
+       </form>
+    {% else %}
+       <p>{{ error_message }}</p>
+       <p>献立一覧画面から予約状況を再確認してください。</p>
+       <p><a href="{% url 'menus:menulist' %}"</a>献立一覧画面へ戻る。</p>
+    {% endif %}
+{% endblock %}
+

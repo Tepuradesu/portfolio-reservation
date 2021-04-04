@@ -1,0 +1,9 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+{% block content %}
+      {% block extrahead %}
+      <link href="{% static 'test.css' %}" rel="stylesheet">
+    {% endblock %}
+<h1>PaymentDetail View</h1>
+{{ user_id }}
+{% endblock %}
